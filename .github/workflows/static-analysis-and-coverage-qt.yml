@@ -7,16 +7,12 @@ on:
         description: 'List of dependencies to install'
         required: false
         type: string
-      use-qt:
-        description: 'Install qt'
-        required: false
-        type: boolean
-        default: false
       qt-version:
         description: 'Qt version to install'
         required: false
         type: string
         default: 6.5.*
+
 env:
   BUILD_TYPE: Release
   BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory
@@ -35,7 +31,6 @@ jobs:
         run: sudo apt-get install -y gcovr ${{ inputs.dependencies }}
 
       - name: Install Qt
-        if: ${{ inputs.use-qt }}
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ inputs.qt-version }}
@@ -51,10 +46,12 @@ jobs:
         run: |
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
           cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
-
+          
       - name: Run tests
         working-directory: ${{github.workspace}}/build
-        run: ctest -C ${{env.BUILD_TYPE}} -E 'Benchmark'
+        run: |
+          export QT_QPA_PLATFORM=offscreen
+          ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
 
       - name: Generate coverage xml
         run: gcovr --filter ${{github.workspace}}/src --xml --exclude-throw-branches --exclude ${{github.workspace}}/src/main.cpp --output coverage.xml

@@ -7,11 +7,6 @@ on:
         description: 'List of dependencies to install'
         required: false
         type: string
-      use-qt:
-        description: 'Install qt'
-        required: false
-        type: boolean
-        default: false
       qt-version:
         description: 'Qt version to install'
         required: false
@@ -37,7 +32,6 @@ jobs:
       run: sudo apt-get install -y ${{ inputs.dependencies-linux }}
 
     - name: Install Qt
-      if: ${{ inputs.use-qt }}
       uses: jurplel/install-qt-action@v4
       with:
         version: ${{ inputs.qt-version }}
