@@ -1,0 +1,55 @@
+name: "CodeQL for cpp project"
+
+on:
+  workflow_call:
+    inputs:
+      dependencies-linux:
+        description: 'List of dependencies to install'
+        required: false
+        type: string
+      use-qt:
+        description: 'Install qt'
+        required: false
+        type: boolean
+        default: false
+      qt-version:
+        description: 'Qt version to install'
+        required: false
+        type: string
+        default: 6.5.*
+
+jobs:
+  analyze:
+    name: Analyze c-cpp
+    runs-on: 'ubuntu-latest'
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      if: ${{ inputs.dependencies-linux }}
+      run: sudo apt-get install -y ${{ inputs.dependencies-linux }}
+
+    - name: Install Qt
+      if: ${{ inputs.use-qt }}
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: ${{ inputs.qt-version }}
+        modules: 'qt5compat'
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: c-cpp
+        build-mode: autobuild
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:c-cpp"
