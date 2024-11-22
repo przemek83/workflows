@@ -13,6 +13,9 @@ on:
         type: string
         default: 6.5.*
 
+env:
+  BUILD_TYPE: Release
+
 jobs:
   analyze:
     name: Analyze c-cpp
