@@ -17,7 +17,8 @@ jobs:
     runs-on: ${{ inputs.platform }}
     
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
     
       - name: Set up Go ${{env.GO_VERSION}}
         uses: actions/setup-go@v5

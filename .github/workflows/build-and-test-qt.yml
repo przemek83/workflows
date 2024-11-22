@@ -26,7 +26,8 @@ jobs:
     runs-on: ${{ inputs.platform }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Install dependencies on Linux
         if: ${{ inputs.dependencies-linux }}
