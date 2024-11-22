@@ -40,15 +40,15 @@ jobs:
         version: ${{ inputs.qt-version }}
         modules: 'qt5compat'
 
+    - name: Configure
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: c-cpp
         build-mode: manual
-
-    - name: Configure
-      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
-
+  
     - name: Build
       run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel 4
 
