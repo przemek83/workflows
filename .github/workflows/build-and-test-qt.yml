@@ -45,7 +45,7 @@ jobs:
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel 4
 
       - name: Setup run env
-        uses: ./.github/actions/setup-qt-run-env
+        uses: przemek83/workflows/.github/actions/setup-qt-run-env
 
       - name: Run tests
         working-directory: ${{ github.workspace }}/build
