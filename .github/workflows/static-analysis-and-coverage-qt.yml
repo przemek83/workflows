@@ -48,11 +48,12 @@ jobs:
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
           cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel 4
           
+      - name: Setup run env
+        uses: przemek83/workflows/.github/actions/setup-qt-run-env@main
+
       - name: Run tests
         working-directory: ${{github.workspace}}/build
-        run: |
-          export QT_QPA_PLATFORM=offscreen
-          ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
+        run: ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
 
       - name: Generate coverage xml
         run: gcovr --filter ${{github.workspace}}/src --xml --exclude-throw-branches --exclude ${{github.workspace}}/src/main.cpp --output coverage.xml
