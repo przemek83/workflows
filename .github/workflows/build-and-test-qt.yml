@@ -44,8 +44,8 @@ jobs:
       - name: Build
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel 4
 
-      - name: Set QT_QPA_PLATFORM
-        run: echo "QT_QPA_PLATFORM=offscreen" >> $GITHUB_ENV
+      - name: Setup run env
+        uses: ./.github/actions/setup-qt-run-env
 
       - name: Run tests
         working-directory: ${{ github.workspace }}/build

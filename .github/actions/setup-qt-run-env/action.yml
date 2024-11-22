@@ -1,0 +1,7 @@
+name: Setup Qt run env
+description: Setup Qt run environment
+runs:
+  using: composite
+  steps:
+    - name: Set QT_QPA_PLATFORM
+      run: echo "QT_QPA_PLATFORM=offscreen" >> $GITHUB_ENV
