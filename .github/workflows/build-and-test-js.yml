@@ -8,10 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Install npm and Jest
-      run: |
-        sudo apt-get install -y npm
-        npm install --save-dev jest
+
+    - name: Setup npm and jest
+      uses: przemek83/workflows/.github/actions/setup-npm-and-jest@main
 
     - name: Run tests 
       run: npm run test

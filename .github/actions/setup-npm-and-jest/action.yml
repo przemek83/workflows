@@ -1,0 +1,9 @@
+name: Setup npm and jest
+description: Install npm and jest on machine
+runs:
+  using: composite
+  steps:
+    - name: Install npm and Jest
+      run: |
+        sudo apt-get install -y npm
+        npm install --save-dev jest
