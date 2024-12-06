@@ -40,7 +40,7 @@ jobs:
           modules: 'qt5compat'
       
       - name: Set CL=/MP environment variable on Windows 
-        if: ${{ inputs.platform }} == windows-latest
+        if: runner.os == 'Windows'
         run: echo "CL=/MP" >> $GITHUB_ENV
 
       - name: Configure CMake
