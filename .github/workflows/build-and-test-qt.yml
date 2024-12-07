@@ -53,7 +53,7 @@ jobs:
         uses: przemek83/workflows/.github/actions/setup-qt-run-env@main
 
       - name: Used env vars
-        run:
+        run: |
           echo "CL: $CL" 
           echo "QT_QPA_PLATFORM: $QT_QPA_PLATFORM"
       
