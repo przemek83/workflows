@@ -55,4 +55,4 @@ jobs:
     
       - name: Run tests
         working-directory: ${{ github.workspace }}/build
-        run: ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
+        run: ctest -C ${{ env.BUILD_TYPE }} --verbose -E 'Benchmark'
