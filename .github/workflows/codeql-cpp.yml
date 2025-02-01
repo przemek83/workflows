@@ -24,7 +24,9 @@ jobs:
 
     - name: Install dependencies
       if: ${{ inputs.dependencies-linux }}
-      run: sudo apt-get install -y ${{ inputs.dependencies-linux }}
+      run: |
+        apt-get update
+        sudo apt-get install -y ${{ inputs.dependencies-linux }}
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
