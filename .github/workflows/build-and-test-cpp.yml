@@ -26,7 +26,9 @@ jobs:
 
       - name: Install dependencies on Linux
         if: ${{ inputs.dependencies-linux }}
-        run: sudo apt-get install -y ${{ inputs.dependencies-linux }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ inputs.dependencies-linux }}
 
       - name: Configure CMake
         run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
