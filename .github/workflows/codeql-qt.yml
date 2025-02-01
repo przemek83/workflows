@@ -15,9 +15,9 @@ on:
 
 permissions:
   security-events: write
-  packages: read
+  # packages: read
   actions: read
-  contents: read
+  # contents: read
 
 env:
   BUILD_TYPE: Release
