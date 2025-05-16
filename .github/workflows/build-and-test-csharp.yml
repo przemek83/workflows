@@ -1,0 +1,36 @@
+name: Build & test
+
+on:
+  workflow_call:
+    inputs:
+      platform:
+        required: true
+        description: 'Platform to use for building'
+        type: string
+
+env:
+  Solution_Name: data-explorer-csharp
+  Test_Project_Path: tests
+  DOTNET_VERSION: 8.0.x
+
+jobs:
+  build:
+    name: Build & test
+    runs-on: ${{ inputs.platform }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }} 
+
+      - name: Build app for release
+        run: dotnet build --configuration Release
+
+      - name: Execute unit tests
+        run: dotnet test
