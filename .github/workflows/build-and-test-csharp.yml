@@ -9,8 +9,6 @@ on:
         type: string
 
 env:
-  Solution_Name: data-explorer-csharp
-  Test_Project_Path: tests
   DOTNET_VERSION: 8.0.x
 
 jobs:
