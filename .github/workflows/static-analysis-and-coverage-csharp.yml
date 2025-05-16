@@ -3,8 +3,7 @@ name: Static analysis and coverage
 on: workflow_call
 
 env:
-  Solution_Name: data-explorer-csharp
-  Test_Project_Path: tests
+  TEST_PROJECT_PATH: tests
   DOTNET_VERSION: 8.0.x
 
 jobs:
@@ -24,7 +23,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }} 
 
       - name: Install JunitXml package
-        run: dotnet add ${{ env.Test_Project_Path }} package JunitXml.TestLogger
+        run: dotnet add ${{ env.TEST_PROJECT_PATH }} package JunitXml.TestLogger
 
       - name: Build app for release
         run: dotnet build --configuration Release
