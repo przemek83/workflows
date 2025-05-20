@@ -12,7 +12,7 @@
 This repository contains reusable GitHub Actions workflows that can be called from any repository.
 
 # Workflows
-Repository contains multiple reusable workflows. There are workflows for building and testing, analysis and coverage reporting using SonarCloud and Codecov, custom CodeQL analysis, and Pylint analysis. For some workflows there are seperate files dedicated each supported programming language. As of Nov 2024 languages are: C++, C++ with Qt, Go, Python.
+Repository contains multiple reusable workflows. There are workflows for building and testing, analysis and coverage reporting using SonarCloud and Codecov, custom CodeQL analysis, and Pylint analysis. For some workflows there are seperate files dedicated each supported programming language. As of May 2025 languages are: C++, C++ with Qt, Go, Python, C#.
 
 > **_NOTE:_**  for some workflows there are multiple versions dedicated different programming language. Examples are for C++.
 
