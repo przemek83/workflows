@@ -67,7 +67,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           disable_search: yes
 
-      - name: SonarQube Scan
+      - name: Run SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

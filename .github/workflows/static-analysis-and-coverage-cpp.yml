@@ -31,7 +31,7 @@ jobs:
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCODE_COVERAGE=ON
 
-      - name: Install Build Wrapper
+      - name: Install SonarQube Build Wrapper
         uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v6
 
       - name: Run build-wrapper
@@ -53,7 +53,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           disable_search: yes
 
-      - name: SonarQube Scan
+      - name: Run SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
