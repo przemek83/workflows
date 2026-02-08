@@ -25,11 +25,24 @@ jobs:
       - name: Install JunitXml package
         run: dotnet add ${{ env.TEST_PROJECT_PATH }} package JunitXml.TestLogger
 
+      - name: Set up SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Begin SonarQube Scan
+        run: dotnet-sonarscanner begin /k:"${{ github.repository }}" /d:sonar.login="$SONAR_TOKEN"
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Build app for release
         run: dotnet build --configuration Release
 
       - name: Execute unit tests
         run: dotnet test --collect:"XPlat Code Coverage;Format=opencover" --logger:"junit;LogFilePath=junit.xml"
+
+      - name: End SonarQube Scan
+        run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
@@ -42,8 +55,3 @@ jobs:
         with:
           report_type: test_results
           token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Run SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
-        env: 
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
