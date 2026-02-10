@@ -2,6 +2,15 @@ name: Static analysis and coverage
 
 on:
   workflow_call:
+    inputs:
+      sonar_project_key:
+        description: 'Sonar project key'
+        required: true
+        type: string
+      sonar_organization:
+        description: 'Sonar organization'
+        required: true
+        type: string
     secrets:
       SONAR_TOKEN:
         required: true
@@ -35,7 +44,7 @@ jobs:
         run: dotnet tool install --global dotnet-sonarscanner
 
       - name: Begin SonarQube Scan
-        run: dotnet-sonarscanner begin /k:"${{ github.repository_owner }}_${{ github.event.repository.name }}" /o:"${{ github.repository_owner }}" /d:sonar.token="$SONAR_TOKEN" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+        run: dotnet-sonarscanner begin /k:"${{ inputs.sonar_project_key }}" /o:"${{ inputs.sonar_organization }}" /d:sonar.token="$SONAR_TOKEN" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
