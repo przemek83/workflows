@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Go ${{env.GO_VERSION}}
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: ${{env.GO_VERSION}}
           cache: false
@@ -36,14 +36,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/codecov-action@v5
-        with:
-          report_type: test_results
-          token: ${{ secrets.CODECOV_TOKEN }}
-
       - name: Run SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@v7
         env: 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
