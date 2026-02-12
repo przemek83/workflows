@@ -1,6 +1,12 @@
 name: Static analysis and coverage
 
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      CODECOV_TOKEN:
+        required: true
 
 env:
   PYTHON_VERSION: 3.14
