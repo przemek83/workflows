@@ -1,6 +1,12 @@
 name: Static analysis and coverage
 
-on: workflow_call
+on:
+  workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      CODECOV_TOKEN:
+        required: true
 
 jobs:
   build:
@@ -9,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -20,11 +26,11 @@ jobs:
         run: npx jest --coverage
 
       - name: Upload results to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Run SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@v7
         env: 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
