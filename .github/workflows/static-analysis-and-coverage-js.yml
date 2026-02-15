@@ -1,12 +1,6 @@
 name: Static analysis and coverage
 
-on:
-  workflow_call:
-    secrets:
-      SONAR_TOKEN:
-        required: true
-      CODECOV_TOKEN:
-        required: true
+on: workflow_call
 
 jobs:
   build:
